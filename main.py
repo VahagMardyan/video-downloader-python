@@ -14,4 +14,3 @@ def download_from_youtube(url):
     except Exception as e:
         print(f'something went wrong: {e}')
     
-download_from_youtube('https://www.youtube.com/shorts/HeU7y1tlAe4')
