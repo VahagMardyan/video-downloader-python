@@ -1,16 +1,32 @@
-from pytube import YouTube
-import os
+from flask import Flask, render_template, request
+import yt_dlp
+
+app = Flask(__name__,static_folder='static')
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/download',methods=['POST'])
+def download():
+    video_url = request.form['video-url']
+    try :
+        download_from_youtube(video_url)
+        return f'<h1> Success!! Video downloaded from Youtube. </h1>'
+    except Exception as e:
+        return f'Something went wrong: {e}'
 
 def download_from_youtube(url):
-    try:
-        video = YouTube(url)
-        print(f'Name:{video.title}')
-        print(f'Length:{video.length}sec.')
-        print(f'Size of video:{video.streams.get_highest_resolution().filesize/1024**2:.2f}Mb')
-
-        desktop_path = os.path.expanduser("~/Desktop")
-        video.streams.get_highest_resolution().download(output_path=desktop_path)
-        print('Video saved in your desktop.')
+    try :
+        options = {
+            'format':'best',
+            'outtmpl': '~/Desktop/%(title)s.%(ext)s',
+        }
+        with yt_dlp.YoutubeDL(options) as ydl:
+            info = ydl.extract_info(url,download=True)
+            print(f'Video downloaded: {info['title']}')
     except Exception as e:
-        print(f'something went wrong: {e}')
-    
+        print(f'Something went wrong: {e}')
+
+
+if __name__ == '__main__' :
+    app.run(debug=True)
