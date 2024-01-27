@@ -6,12 +6,15 @@ app = Flask(__name__,static_folder='static')
 def index():
     return render_template('index.html')
 
-@app.route('/download',methods=['POST'])
+@app.route('/download',methods=['GET','POST'])
 def download():
     video_url = request.form['video-url']
     try :
-        download_from_youtube(video_url)
-        return f'<h1> Success!! Video downloaded from Youtube. </h1>'
+        if 'http' in video_url:
+            download_from_youtube(video_url)
+            return f'<h1> Success!! Video downloaded from the source. </h1>'
+        else :
+            return f'<h1 style="color: red;">Invalid link!!</h1>'
     except Exception as e:
         return f'Something went wrong: {e}'
 
