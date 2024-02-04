@@ -14,7 +14,7 @@ def download():
             download_from_youtube(video_url)
             return f'<script>const confirm = window.confirm("Success!! Video downloaded from the source.");if(confirm) open("http://localhost:5000","_self")</script>'
         else :
-            return f'<h1 style="color: red;">Invalid link!!</h1>'
+            return f'<script>const confirm = window.confirm("Invalid Link!!");if(confirm) open("http://localhost:5000","_self")</script>'
     except Exception as e:
         return f'Something went wrong: {e}'
 
