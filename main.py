@@ -30,7 +30,7 @@ def download():
 def download_from_youtube(url):
     try :
         options = {
-            'format':'best',
+            'format':'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
             'outtmpl': '~/Desktop/%(title)s.%(ext)s',
         }
         with yt_dlp.YoutubeDL(options) as ydl:
@@ -38,7 +38,6 @@ def download_from_youtube(url):
             print(f'Video downloaded: {info["title"]}')
     except Exception as e:
         print(f'Something went wrong: {e}')
-
-
+    
 if __name__ == '__main__' :
     app.run(host='localhost', port=5000, debug=True)
