@@ -1,0 +1,6 @@
+Here are the necessary libraries to install
+
+pip install flask
+pip install yt_dlp
+
+You need to install ffmpeg app too.
