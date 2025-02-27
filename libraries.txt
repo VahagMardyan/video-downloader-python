@@ -4,3 +4,6 @@ pip install flask
 pip install yt_dlp
 
 You need to install ffmpeg app too.
+
+Please constantly update the yt_dlp library using the command below.
+pip install -U yt-dlp
