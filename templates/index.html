@@ -16,6 +16,11 @@
         <form action="/download" method="post">
             <input type="text" id="video-url" name="video-url" required autocomplete="off"
                 placeholder="Enter URL here." title="Alt+Enter" />
+                <select name="format" id="">
+                    <option value="" selected disabled>Select media format</option>
+                    <option value="mp4">mp4</option>
+                    <option value="mp3">mp3</option>
+                </select>
             <button title="Enter">Download</button>
         </form>
     </div>

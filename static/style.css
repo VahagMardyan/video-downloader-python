@@ -33,7 +33,7 @@ label {
 }
 
 input,
-button {
+button, select {
     width: 90%;
     height: 27px;
     border: 1px solid black;
@@ -41,6 +41,10 @@ button {
     margin-top: 10px;
     background-color: #85bcfc;
     font-size: 1em;
+}
+
+select {
+    cursor: pointer;
 }
 
 input {
@@ -68,4 +72,53 @@ button {
 button:is(:hover) {
     background-color: #05366e;
     color: #b1c0c0;
+}
+
+@media (max-width: 480px) {
+    .display {
+        width: 90%;
+        margin-inline: 5%;
+        margin-block: 20%;
+        padding: 25px;
+        font-size: 1em;
+    }
+
+    label {
+        font-size: 1.2em;
+    }
+
+    input,
+    button,
+    select {
+        width: 100%;
+        height: 35px;
+        font-size: 1em;
+    }
+
+    button {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .display {
+        width: 80%;
+        margin-inline: 10%;
+        margin-block: 15%;
+        padding: 35px;
+    }
+
+    input,
+    button,
+    select {
+        width: 95%;
+    }
+}
+
+
+@media (max-width: 1024px) {
+    .display {
+        width: 65%;
+        margin-inline: 17.5%;
+    }
 }
