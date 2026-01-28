@@ -14,7 +14,7 @@ def download_media(url: str, media_format: str = "mp4") -> tuple[str, bool, str]
         options = {
             "quiet": True,
             "no_warnings": True,
-            "ffmpeg_location": "./ffmpeg",
+            "ffmpeg_location": "./ffmpeg" if os.path.exists("./ffmpeg") else "ffmpeg" ,
             "outtmpl": f"{DOWNLOAD_DIR}/%(title)s.%(ext)s",
             "nocheckcertificate": True,
         }
