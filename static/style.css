@@ -1,124 +1,102 @@
+:root {
+    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --container-bg: rgba(255, 255, 255, 0.2);
+    --text-color: #ffffff;
+    --input-bg: rgba(255, 255, 255, 0.9);
+    --btn-color: #4a90e2;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        --container-bg: rgba(0, 0, 0, 0.3);
+        --text-color: #e0e0e0;
+        --input-bg: rgba(255, 255, 255, 0.1);
+        --btn-color: #0f3460;
+    }
+}
+
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     user-select: none;
 }
 
 body {
-    background-color: #090980;
-    color: #b1c0c0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg-gradient);
+    transition: background 0.5s ease;
 }
 
 .display {
-    width: 50%;
+    background: var(--container-bg);
+    backdrop-filter: blur(10px); /* Ապակու էֆեկտ */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+}
+
+h1 {
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+}
+
+form {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 50px;
-    border-radius: 15px;
-    font-size: 1.2em;
-    margin-inline: 25%;
-    margin-block: 10%;
-    background-color: #05366e;
-    text-align: center;
-    box-shadow: 13px 9px 10px 0px rgba(0, 0, 0, 0.74);
-    -webkit-box-shadow: 13px 9px 10px 0px rgba(0, 0, 0, 0.74);
-    -moz-box-shadow: 13px 9px 10px 0px rgba(0, 0, 0, 0.74);
+    gap: 1rem;
 }
 
-label {
-    font-size: 1.5em;
+input, select {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: var(--input-bg);
+    color: #333;
+    outline: none;
+    transition: transform 0.2s;
 }
 
-input,
-button, select {
-    width: 90%;
-    height: 27px;
-    border: 1px solid black;
-    border-radius: 15px;
-    margin-top: 10px;
-    background-color: #85bcfc;
-    font-size: 1em;
+/* Dark mode-ի դեպքում input-ի տեքստի գույնը */
+@media (prefers-color-scheme: dark) {
+    input, select { color: white; }
+    option { background: #1a1a2e; }
 }
 
-select {
-    cursor: pointer;
-}
-
-input {
-    padding: 5px;
-}
-
-input::-webkit-input-placeholder {
-    color: black;
-    opacity: 0.75;
-}
-
-input:is(:focus)::-webkit-input-placeholder {
-    color: #b1c0c0;
-    opacity: 1;
+input:focus {
+    transform: scale(1.02);
 }
 
 button {
-    cursor: pointer;
+    padding: 12px;
     border: none;
-    transition: 0.23s;
-    border: 1px solid black;
-    font-size: 20px;
+    border-radius: 10px;
+    background: #ff4b2b;
+    background: linear-gradient(to right, #ff416c, #ff4b2b);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-button:is(:hover) {
-    background-color: #05366e;
-    color: #b1c0c0;
+button:hover {
+    box-shadow: 0 5px 15px rgba(255, 75, 43, 0.4);
+    transform: translateY(-2px);
 }
 
 @media (max-width: 480px) {
     .display {
-        width: 90%;
-        margin-inline: 5%;
-        margin-block: 20%;
-        padding: 25px;
-        font-size: 1em;
+        padding: 1.5rem;
     }
-
-    label {
-        font-size: 1.2em;
-    }
-
-    input,
-    button,
-    select {
-        width: 100%;
-        height: 35px;
-        font-size: 1em;
-    }
-
-    button {
-        font-size: 16px;
-    }
-}
-
-@media (max-width: 768px) {
-    .display {
-        width: 80%;
-        margin-inline: 10%;
-        margin-block: 15%;
-        padding: 35px;
-    }
-
-    input,
-    button,
-    select {
-        width: 95%;
-    }
-}
-
-
-@media (max-width: 1024px) {
-    .display {
-        width: 65%;
-        margin-inline: 17.5%;
-    }
+    h1 { font-size: 1.5rem; }
 }
