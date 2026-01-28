@@ -1,46 +1,35 @@
 import yt_dlp
 import os
-import re
 
-DOWNLOAD_DIR = os.path.join(os.path.expanduser("~"), "Desktop")
+DOWNLOAD_DIR = "/tmp" 
 
-def sanitize_filename(s, max_length=100):
-    s = re.sub(r'[\\/*?:"<>|]', "_", s)
-    return s[:max_length]
-
-def download_media(url: str, media_format: str = "mp4") -> tuple[str, bool]:
+def download_media(url: str, media_format: str = "mp4") -> tuple[str, bool, str]:
     try:
-        if not url.startswith("http"):
-            return ("Invalid link", False)
+        if not os.path.exists(DOWNLOAD_DIR):
+            os.makedirs(DOWNLOAD_DIR)
 
         options = {
             "quiet": True,
-            "no_warnings": True,
+            "outtmpl": f"{DOWNLOAD_DIR}/%(title)s.%(ext)s",
         }
 
-        if media_format == "mp4":
-            options.update({
-                "format": "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best",
-                "outtmpl": os.path.join(DOWNLOAD_DIR, "%(title)s.%(ext)s"),
-            })
-        elif media_format == "mp3":
+        if media_format == "mp3":
             options.update({
                 "format": "bestaudio/best",
-                "outtmpl": os.path.join(DOWNLOAD_DIR, "%(title)s.%(ext)s"),
                 "postprocessors": [{
                     "key": "FFmpegExtractAudio",
                     "preferredcodec": "mp3",
-                    "preferredquality": "192",
                 }],
             })
         else:
-            return ("Unsupported format", False)
+            options.update({"format": "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"})
 
         with yt_dlp.YoutubeDL(options) as ydl:
             info = ydl.extract_info(url, download=True)
-            title = sanitize_filename(info["title"])
+            filename = ydl.prepare_filename(info)
+            if media_format == "mp3":
+                filename = filename.rsplit('.', 1)[0] + ".mp3"
 
-        return (f"Downloaded: {title}", True)
-
+        return ("Success", True, filename)
     except Exception as e:
-        return (str(e), False)
+        return (str(e), False, "")
