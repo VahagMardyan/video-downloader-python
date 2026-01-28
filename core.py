@@ -4,6 +4,9 @@ import os
 DOWNLOAD_DIR = "/tmp"
 
 def download_media(url: str, media_format: str = "mp4") -> tuple[str, bool, str]:
+    if "youtube.com" in url or "youtu.be" in url:
+        return ("YouTube downloading is currently disabled due to provider restrictions.", False, "")
+
     try:
         if not os.path.exists(DOWNLOAD_DIR):
             os.makedirs(DOWNLOAD_DIR)
@@ -11,19 +14,9 @@ def download_media(url: str, media_format: str = "mp4") -> tuple[str, bool, str]
         options = {
             "quiet": True,
             "no_warnings": True,
-            "cookiefile": "youtube.com_cookies.txt",
             "ffmpeg_location": "./ffmpeg",
-            "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36",
             "outtmpl": f"{DOWNLOAD_DIR}/%(title)s.%(ext)s",
             "nocheckcertificate": True,
-            "format": "best",
-            "extractor_args": {
-                "youtube": {
-                    "player_client": ["android"],
-                    "skip": ["dash", "hls"]
-                }
-            },
-            "http_chunk_size": 10485760,
         }
 
         if media_format == "mp3":
@@ -36,7 +29,7 @@ def download_media(url: str, media_format: str = "mp4") -> tuple[str, bool, str]
                 }],
             })
         else:
-            options.update({"format": "best[ext=mp4]/best"})
+            options.update({"format": "best"})
 
         with yt_dlp.YoutubeDL(options) as ydl:
             info = ydl.extract_info(url, download=True)
