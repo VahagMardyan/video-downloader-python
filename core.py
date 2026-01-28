@@ -36,7 +36,7 @@ def download_media(url: str, media_format: str = "mp4") -> tuple[str, bool, str]
                 }],
             })
         else:
-            options.update({"format": "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"})
+            options.update({"format": "best[ext=mp4]/best"})
 
         with yt_dlp.YoutubeDL(options) as ydl:
             info = ydl.extract_info(url, download=True)
