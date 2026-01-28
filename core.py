@@ -16,12 +16,14 @@ def download_media(url: str, media_format: str = "mp4") -> tuple[str, bool, str]
             "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36",
             "outtmpl": f"{DOWNLOAD_DIR}/%(title)s.%(ext)s",
             "nocheckcertificate": True,
+            "format": "best",
             "extractor_args": {
                 "youtube": {
-                    "player_client": ["android", "ios"],
+                    "player_client": ["android"],
                     "skip": ["dash", "hls"]
                 }
             },
+            "http_chunk_size": 10485760,
         }
 
         if media_format == "mp3":
