@@ -1,7 +1,7 @@
 import yt_dlp
 import os
 
-DOWNLOAD_DIR = "/tmp" 
+DOWNLOAD_DIR = "/tmp"
 
 def download_media(url: str, media_format: str = "mp4") -> tuple[str, bool, str]:
     try:
@@ -10,6 +10,9 @@ def download_media(url: str, media_format: str = "mp4") -> tuple[str, bool, str]
 
         options = {
             "quiet": True,
+            "no_warnings": True,
+            "cookiefile": "youtube.com_cookies.txt",
+            "ffmpeg_location": "./ffmpeg",
             "outtmpl": f"{DOWNLOAD_DIR}/%(title)s.%(ext)s",
         }
 
@@ -19,6 +22,7 @@ def download_media(url: str, media_format: str = "mp4") -> tuple[str, bool, str]
                 "postprocessors": [{
                     "key": "FFmpegExtractAudio",
                     "preferredcodec": "mp3",
+                    "preferredquality": "192",
                 }],
             })
         else:
