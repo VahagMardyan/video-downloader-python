@@ -2,6 +2,8 @@ import yt_dlp
 import os
 
 DOWNLOAD_DIR = "/tmp"
+local_ffmpeg = r"C:\ffmpeg\bin\ffmpeg.exe"
+render_ffmpeg = "./ffmpeg"
 
 def download_media(url: str, media_format: str = "mp4") -> tuple[str, bool, str]:
     if "youtube.com" in url or "youtu.be" in url:
@@ -14,7 +16,7 @@ def download_media(url: str, media_format: str = "mp4") -> tuple[str, bool, str]
         options = {
             "quiet": True,
             "no_warnings": True,
-            "ffmpeg_location": "./ffmpeg" if os.path.exists("./ffmpeg") else "ffmpeg" ,
+            "ffmpeg_location": local_ffmpeg if os.path.exists(local_ffmpeg) else render_ffmpeg ,
             "outtmpl": f"{DOWNLOAD_DIR}/%(title)s.%(ext)s",
             "nocheckcertificate": True,
         }
