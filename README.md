@@ -1,7 +1,19 @@
 Video downloader from almost every web-page (doesn't support youtube due to youtube's restrictions)
 Visit: https://video-downloader-python.onrender.com
 
-For youtube and others use the terminal version of code. Please note that you need to install libraries from "libraries.txt".
+For youtube and others use the terminal version of code. Please note that you need to install libraries below.
+
+Here are the necessary libraries to install
+
+```
+pip install flask
+pip install yt_dlp
+
+# # You need to install ffmpeg app too.
+
+# #Please constantly update the yt_dlp library using the command below.
+pip install -U yt-dlp
+```
 
 ```
 import yt_dlp
