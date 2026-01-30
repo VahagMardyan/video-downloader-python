@@ -6,8 +6,8 @@ local_ffmpeg = r"C:\ffmpeg\bin\ffmpeg.exe"
 render_ffmpeg = "./ffmpeg"
 
 def download_media(url: str, media_format: str = "mp4") -> tuple[str, bool, str]:
-    if "youtube.com" in url or "youtu.be" in url:
-        return ("YouTube downloading is currently disabled due to provider restrictions.", False, "")
+    # if "youtube.com" in url or "youtu.be" in url:
+    #     return ("YouTube downloading is currently disabled due to provider restrictions.", False, "")
 
     try:
         if not os.path.exists(DOWNLOAD_DIR):
